@@ -1,0 +1,17 @@
+{
+  "name": "latihan",
+  "version": "9.6.7",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "cek": "ls",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "adiirawan",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1",
+    "validator": "^13.11.0"
+  }
+}
