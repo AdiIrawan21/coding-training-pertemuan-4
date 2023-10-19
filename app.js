@@ -6,23 +6,37 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question("Masukkan Nama : ", (name) => {
-  rl.question("Masukkan Nomor Telpon : ", (phone) => {
-    rl.question("Masukkan Email :  ", (email) => {
-      const cekPhone = validator.isMobilePhone(phone, "id-ID", { strictMode: false });
-      const cekEmail = validator.isEmail(email);
-
-      if (cekPhone && cekEmail) {
-        console.log(`Nama saya ${name}, nomor telpon saya ${phone}, dan alamat email saya ${email}`);
-      } else {
-        if (!cekPhone) {
-          console.log("Nomor Telpon yang anda masukkan salah, silahkan input sesuai format IDN!");
-        }
-        if (!cekEmail) {
-          console.log("Email yang anda masukkan salah, silahkan input sesuai format email!");
-        }
-      }
-      rl.close();
-    });
+function inputNama() {
+  rl.question("Masukkan Nama : ", (nama) => {
+    inputNotelp(nama);
   });
-});
+}
+
+function inputNotelp(nama) {
+  rl.question("Masukkan NoTelp : ", (telp) => {
+    const cekTelpon = validator.isMobilePhone(telp, "id-ID", { strictMode: false });
+
+    if (cekTelpon) {
+      askEmail(nama, telp);
+    } else {
+      console.log("No Telp salah. Silahkan masukkan sesuai format IDN!");
+      inputNotelp(nama);
+    }
+  });
+}
+
+function askEmail(nama, telp) {
+  rl.question("Masukkan Email : ", (email) => {
+    const cekEmail = validator.isEmail(email);
+
+    if (cekEmail) {
+      console.log(`Nama saya ${nama}, nomor telpon saya  ${telp}, dan alamat email saya ${email}`);
+      rl.close();
+    } else {
+      console.log("Email yang dimasukkan salah. Silahkan masukkan sesuai format email");
+      askEmail(nama, telp);
+    }
+  });
+}
+
+inputNama();
